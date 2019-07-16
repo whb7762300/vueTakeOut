@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.timeout = 10000;                        //响应时间
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';        //配置请求头
+//axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';        //配置请求头
 axios.defaults.baseURL = '/api';   //配置接口地址
 
 
@@ -13,7 +13,7 @@ axios.interceptors.response.use((res) => {
       if (result.code == 0) {
         return Promise.resolve(result);
       } else {
-        return Promise.reject("请求数据失败");
+        return Promise.reject(result.msg);
       }
     }
     return result;
@@ -52,8 +52,6 @@ axios.interceptors.response.use((res) => {
 }*/
 
 export default function request(url, params = {}, type = "GET") {
-  console.log(url);
-  console.log(params);
   return new Promise((resolve, reject) => {
     let pro = null;
     if (type === "GET") {
@@ -63,8 +61,6 @@ export default function request(url, params = {}, type = "GET") {
     }
     pro.then(response => {
       resolve(response);
-    }, err => {
-      reject(err);
     })
       .catch((error) => {
         reject(error)

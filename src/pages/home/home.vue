@@ -6,19 +6,22 @@
       </a>
       <slot name="right"></slot>
     </title-bar>
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(item,i) in categorys">
-          <ul>
-            <li v-for="(section,index) in item">
-              <img :src="'../../../static/images/nav/'+(i*8+index+1)+'.jpg'" alt="">
-              <p>{{section.title}}</p>
-            </li>
-          </ul>
+    <div>
+      <div class="swiper-container" v-if="categorys.length">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(item,i) in categorys">
+            <ul>
+              <li v-for="(section,index) in item">
+                <img :src="'../../../static/images/nav/'+(i*8+index+1)+'.jpg'" alt="">
+                <p>{{section.title}}</p>
+              </li>
+            </ul>
+          </div>
         </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
       </div>
-      <!-- 如果需要分页器 -->
-      <div class="swiper-pagination"></div>
+      <img src="../../assets/msite_back.svg" alt="" v-else>
     </div>
     <shop-list :shopList="shopList"></shop-list>
   </div>

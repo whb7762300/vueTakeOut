@@ -4,36 +4,47 @@
       <span class="iconfont icon-xuanxiang"></span>
       <span>附近商家</span>
     </div>
-    <ul class="listul">
-      <li class="listli" v-for="(item,i) in shopList">
+    <ul class="listul" v-if="shopList.length>0">
+      <li class="listli" v-for="(item,i) in shopList" :key="item.id">
         <a href="javascript:;" class="clearFix">
           <img :src="'../../static/images/shop/'+(i+1)%5+'.jpg'" alt="">
           <div class="shopRight">
             <div class="one">
               <h4 class="title">{{item.name}}</h4>
-              <ul class="tag">
+              <ul class="tag clearFix">
+                <li>保</li>
                 <li>保</li>
               </ul>
             </div>
             <div class="two">
               <div class="textLeft">
-                <span class="score">4.2</span>
+                <van-rate class="star" v-model="item.rating" allow-half void-icon="star"
+                          readonly size="10px" void-color="#eee"/>
+                <span class="score">{{item.rating}}</span>
                 <span>月售{{item.recent_order_num}}单</span>
               </div>
               <span class="deliver">硅谷专送</span>
             </div>
             <div class="three"><p>¥20起送/{{item.piecewise_agent_fee.tips}}</p></div>
           </div>
-        </a></li>
+        </a>
+      </li>
+    </ul>
+    <ul v-for="item in 5" v-else>
+      <li><img src="../assets/shop_back.svg" alt=""></li>
     </ul>
   </div>
 </template>
 
 <script>
+
+
   export default {
     name: "homeShopList",
     data() {
-      return {}
+      return {
+        starValue: 1
+      }
     },
     methods: {},
     created() {
@@ -77,6 +88,13 @@
               justify-content: space-between;
 
               &.one {
+                .tag {
+                  li {
+                    float: left;
+                    margin-left: 3px;
+                  }
+                }
+
                 .title {
                   color: #333;
                   font-size: 16px;
@@ -105,6 +123,14 @@
                 font-size: 10px;
 
                 .textLeft {
+                  .star {
+                    margin-right: 5px;
+                    //设置星星的大小
+                    /* .van-icon-star {
+                       font-size: 12px;
+                     }*/
+                  }
+
                   .score {
                     color: orange;
                   }

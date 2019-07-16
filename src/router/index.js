@@ -5,6 +5,7 @@ import search from '@/pages/search/search.vue'
 import order from '../pages/order/order.vue'
 import mine from '../pages/mine/mine.vue'
 import goodsDetail from '../pages/home/goodsDetail.vue'
+import login from '../pages/mine/Login.vue'
 
 Vue.use(Router)
 
@@ -45,6 +46,11 @@ export default new Router({
       meta: {
         showFooter: true
       }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
     },
     {
       path: '/goodsdetail',

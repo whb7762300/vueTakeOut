@@ -4,10 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store/index.js'
+//vant组件
+import {Rate, Button, Switch} from 'vant';
 
-Vue.config.productionTip = false
+Vue.use(Switch);
+Vue.use(Button);
+Vue.use(Rate);
 
-/* eslint-disable no-new */
+
+
 new Vue({
   el: '#app',
   router,

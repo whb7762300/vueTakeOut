@@ -8,3 +8,9 @@ export const reqShopList = (latitude, longitude) => ajax('/shops', {
   latitude: latitude,
   longitude: longitude
 })
+//4.账号密码登录
+export const reqPwdLogin = ({name, pwd, captcha}) => ajax('/login_pwd', {
+  name,
+  pwd,
+  captcha
+}, 'POST')

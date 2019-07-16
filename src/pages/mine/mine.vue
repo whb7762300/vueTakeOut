@@ -2,7 +2,7 @@
   <div class="mineContainer">
     <title-bar title="我的"></title-bar>
     <router-link tag="div" class="info clearFix"
-                 :to="$store.state.userInfo.name?'/userinfo':'/login'">
+                 :to="$store.state.userInfo._id?'/userinfo':'/login'">
       <div class="ivHeadInfo">
         <i class="iconfont icon-person ivhead"></i>
       </div>
@@ -31,19 +31,44 @@
         <p>我的积分</p>
       </div>
     </div>
+
+    <van-button type="danger" class="loginOut" @click="loginOut" size="large"
+                v-if="$store.state.userInfo._id">退出登录
+    </van-button>
   </div>
 </template>
 
 <script>
   import titleBar from '../../components/titleBar.vue'
-
+  import {reqLoginOut} from '../../api/index.js'
+  import {CLEAR_USER_INFO} from '../../store/mutations-type.js'
+  import {Toast, Dialog} from 'vant'
 
   export default {
     name: "mine",
     data() {
       return {}
     },
-    methods: {},
+    methods: {
+      loginOut() {
+        Dialog.confirm({
+          message: '确定退出吗?'
+        })
+          .then(() => {
+            return reqLoginOut()
+          })
+          .then(res => {
+            Toast('登出成功');
+            this.$store.commit(CLEAR_USER_INFO);
+          }).catch(res => {
+          if (res == 'cancel') {
+            Toast('取消');
+          } else {
+            Toast('登出失败');
+          }
+        });
+      }
+    },
     created() {
     },
     components: {
@@ -136,6 +161,12 @@
           color: #666;
         }
       }
+    }
+
+    .loginOut {
+      width: 80%;
+      display: block;
+      margin: 20px auto;
     }
   }
 </style>

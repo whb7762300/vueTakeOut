@@ -9,7 +9,7 @@ axios.defaults.baseURL = '/api';   //配置接口地址
 axios.interceptors.response.use((res) => {
     let result = res.data;
     //对响应数据做些事
-    if (result.code) {
+    if ("code" in result) {
       if (result.code == 0) {
         return Promise.resolve(result);
       } else {

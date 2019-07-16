@@ -14,3 +14,5 @@ export const reqPwdLogin = ({name, pwd, captcha}) => ajax('/login_pwd', {
   pwd,
   captcha
 }, 'POST')
+//5.用户退出登录
+export const reqLoginOut = () => ajax('/logout');

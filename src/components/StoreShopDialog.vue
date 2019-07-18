@@ -35,7 +35,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #00000030;
+    background: #00000070;
     display: flex;
     justify-content: center;
     align-items: center;

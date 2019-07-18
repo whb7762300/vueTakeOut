@@ -1,4 +1,11 @@
-import {RECEIVE_ADDRESS, SET_USER_INFO, CLEAR_USER_INFO} from './mutations-type.js'
+import {
+  RECEIVE_ADDRESS,
+  SET_USER_INFO,
+  CLEAR_USER_INFO,
+  CART_FOOD_ADD,
+  CART_FOOD_DEL
+} from './mutations-type.js'
+import Vue from 'vue';
 
 export default {
   [RECEIVE_ADDRESS](state) {
@@ -11,5 +18,29 @@ export default {
   [CLEAR_USER_INFO](state) {
     state.userInfo = {};
     localStorage.setItem('userInfo', '');
+  },
+  [CART_FOOD_ADD](state, food) {
+    if (!food.count) {
+      /*
+      对象
+      属性名
+      属性值
+       */
+      Vue.set(food, 'count', 1) // 让新增的属性也有数据绑定
+      state.cartFoods.push(food);
+    } else {
+      food.count++
+    }
+
+  },
+  [CART_FOOD_DEL](state, food) {
+    if (food.count) {
+      if (food.count > 0) {
+        food.count--
+      }
+      if (food.count === 0) {
+        state.cartFoods.splice(state.cartFoods.indexOf(food), 1);
+      }
+    }
   }
 }

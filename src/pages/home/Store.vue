@@ -15,10 +15,7 @@
         <span>商家</span>
       </router-link>
     </ul>
-
     <router-view></router-view>
-
-
   </div>
 </template>
 

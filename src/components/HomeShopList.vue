@@ -5,7 +5,8 @@
       <span>附近商家</span>
     </div>
     <ul class="listul" v-if="shopList.length>0">
-      <li class="listli" v-for="(item,i) in shopList" :key="item.id">
+      <router-link tag="li" class="listli" v-for="(item,i) in shopList" :key="item.id"
+                   to="/store/orderfood">
         <a href="javascript:;" class="clearFix">
           <img :src="'../../static/images/shop/'+(i+1)%5+'.jpg'" alt="">
           <div class="shopRight">
@@ -28,7 +29,7 @@
             <div class="three"><p>¥20起送/{{item.piecewise_agent_fee.tips}}</p></div>
           </div>
         </a>
-      </li>
+      </router-link>
     </ul>
     <ul v-for="item in 5" v-else>
       <li><img src="../assets/shop_back.svg" alt=""></li>
@@ -72,16 +73,17 @@
         @include bottom-border-1px;
 
         a {
+          display: flex;
+
           img {
             display: block;
             width: 95px;
             height: 75px;
-            float: left;
           }
 
           .shopRight {
             padding-left: 8px;
-            overflow: hidden;
+            flex: 1;
 
             div {
               display: flex;

@@ -1,10 +1,10 @@
 <template>
-  <h3>商品详情</h3>
+  <div><h3>评论</h3></div>
 </template>
 
 <script>
   export default {
-    name: "goodsDetail",
+    name: "Comment",
     data() {
       return {}
     },

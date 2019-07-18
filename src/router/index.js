@@ -4,8 +4,11 @@ import home from '@/pages/home/home.vue'
 import search from '@/pages/search/search.vue'
 import order from '../pages/order/order.vue'
 import mine from '../pages/mine/mine.vue'
-import goodsDetail from '../pages/home/goodsDetail.vue'
+import store from '../pages/home/Store.vue'
 import login from '../pages/mine/Login.vue'
+import comment from '../pages/home/store/Comment.vue'
+import orderFood from '../pages/home/store/Order.vue'
+import storeInfo from '../pages/home/store/StoreInfo.vue'
 
 Vue.use(Router)
 
@@ -53,9 +56,21 @@ export default new Router({
       component: login
     },
     {
-      path: '/goodsdetail',
-      name: 'goodsDetail',
-      component: goodsDetail
+      path: '/store',
+      name: 'store',
+      component: store,
+      children: [{
+        path: 'orderfood',
+        component: orderFood
+      },
+        {
+          path: 'comment',
+          component: comment
+        },
+        {
+          path: 'storeinfo',
+          component: storeInfo
+        },]
     },
   ]
 })

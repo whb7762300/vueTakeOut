@@ -28,10 +28,10 @@
 </template>
 
 <script>
-  import titleBar from '../../components/titleBar.vue'
+  import titleBar from '../../components/TitleBar.vue'
   import Swiper from 'swiper/dist/js/swiper.js'
   import 'swiper/dist/css/swiper.min.css'
-  import shopList from '../../components/homeShopList.vue'
+  import shopList from '../../components/HomeShopList.vue'
   import {reqFoodCategorys, reqAddress, reqShopList} from '../../api/index.js'
 
   export default {

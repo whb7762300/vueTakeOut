@@ -6,8 +6,8 @@
 </template>
 
 <script>
-  import homeFooter from './components/homeFooter.vue'
-  import titleBar from './components/titleBar.vue'
+  import homeFooter from './components/HomeFooter.vue'
+  import titleBar from './components/TitleBar.vue'
 
   export default {
     name: 'App',
@@ -20,5 +20,7 @@
 
 <style>
   #app {
+    width: 100%;
+    height: 100%;
   }
 </style>

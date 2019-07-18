@@ -33,13 +33,13 @@
     </div>
 
     <van-button type="danger" class="loginOut" @click="loginOut" size="large"
-                v-if="$store.state.userInfo._id">退出登录
+                v-show="$store.state.userInfo._id">退出登录
     </van-button>
   </div>
 </template>
 
 <script>
-  import titleBar from '../../components/titleBar.vue'
+  import titleBar from '../../components/TitleBar.vue'
   import {reqLoginOut} from '../../api/index.js'
   import {CLEAR_USER_INFO} from '../../store/mutations-type.js'
   import {Toast, Dialog} from 'vant'

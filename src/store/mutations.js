@@ -3,7 +3,8 @@ import {
   SET_USER_INFO,
   CLEAR_USER_INFO,
   CART_FOOD_ADD,
-  CART_FOOD_DEL
+  CART_FOOD_DEL,
+  CART_FOOD_CLEAR
 } from './mutations-type.js'
 import Vue from 'vue';
 
@@ -42,5 +43,11 @@ export default {
         state.cartFoods.splice(state.cartFoods.indexOf(food), 1);
       }
     }
+  },
+  [CART_FOOD_CLEAR](state) {
+    for (let i = 0; i < state.cartFoods.length; i++) {
+      state.cartFoods[i].count = 0;
+    }
+    state.cartFoods = [];
   }
 }

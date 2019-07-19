@@ -7,5 +7,12 @@ export default {
       num = num + food.count;
     })
     return num;
+  },
+  getCartPrice(state) {
+    let price = 0;
+    state.cartFoods.forEach(food => {
+      price = price + food.count * food.price;
+    })
+    return price;
   }
 }

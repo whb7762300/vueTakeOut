@@ -31,12 +31,34 @@
       </ul>
     </div>
     <div class="bottomCart">
-      <div data-v-c9d21d48="" class="logo-wrapper">
-        <div data-v-c9d21d48="" class="logo highlight">
-          <i data-v-c9d21d48="" class="iconfont icon-shopping_cart highlight"></i>
-        </div>
-        <div data-v-c9d21d48="" class="num">7</div>
+      <div class="imgCart" @click="cartListShowToogle">
+        <span class="iconfont icon-shopping_cart iconCart"></span>
+        <div class="num" v-show="$store.getters.getCartCount">{{$store.getters.getCartCount}}</div>
       </div>
+      <div class="allPrice">
+        <p>¥{{$store.getters.getCartPrice}}</p>
+        <p>另需配送费¥10</p>
+      </div>
+      <div class="minPrice">¥20元起送</div>
+    </div>
+    <div class="cartList" v-show="showCartListPop" @click="showCartList =false">
+      <transition name="up">
+        <div class="listWrapper" @click.stop="" v-show="showCartListPop">
+          <div class="title">
+            <span>购物车</span>
+            <span @click="clearCart">清空</span>
+          </div>
+          <ul class="content">
+            <li v-for="item in $store.state.cartFoods">
+              <span class="left">{{item.name}}</span>
+              <div class="right">
+                <div>¥{{item.price}}</div>
+                <countControl :food="item"></countControl>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -45,11 +67,13 @@
   import BScroll from 'better-scroll'
   import data from '../../../api/data.json'
   import countControl from '../../../components/ShopCartControl.vue'
+  import {CART_FOOD_CLEAR} from '../../../store/mutations-type.js'
 
   export default {
     name: "Order",
     data() {
       return {
+        showCartList: false,
         goods: [],
         info: {},
         tops: [],//右侧所有单元数距离父布局的顶部距离
@@ -58,6 +82,11 @@
       }
     },
     methods: {
+      clearCart() {
+        this.showCartList = false;
+        console.log("执行了");
+        this.$store.commit(CART_FOOD_CLEAR);
+      },
       leftClick(index) {
         let scrollY = this.tops[index];
         this.foodScroll.scrollTo(0, -scrollY);
@@ -105,6 +134,11 @@
           tops.push(top);
         }
         this.leftTops = tops;
+      },
+      cartListShowToogle() {
+        if (this.totalCartCount > 0) {
+          this.showCartList = !this.showCartList;
+        }
       }
     },
     created() {
@@ -130,6 +164,13 @@
           }
         }
         return index;
+      },
+      //显示购物车的滑动列表必须点击了显示,而且购物数量大于0
+      showCartListPop() {
+        return this.showCartList && this.totalCartCount > 0;
+      },
+      totalCartCount() {
+        return this.$store.getters.getCartCount;
       }
     }
   }
@@ -265,13 +306,160 @@
 
 
     .bottomCart {
+      z-index: 100;
       height: 50px;
       width: 100%;
       position: fixed;
       left: 0;
       bottom: 0;
-      background: white;
-      border-top: 1px solid #f1f1f1;
+      background: black;
+
+      .imgCart {
+        display: inline-block;
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        height: 48px;
+        width: 48px;
+        border-radius: 25px;
+        line-height: 48px;
+        background: #02a774;
+        color: white;
+        border: 5px solid rgba(0, 0, 0, 0.5);
+
+        .num {
+          width: 20px;
+          height: 20px;
+          background: red;
+          position: absolute;
+          top: -8px;
+          border-radius: 10px;
+          color: white;
+          text-align: center;
+          line-height: 20px;
+          right: -8px;
+        }
+
+        .iconCart {
+          display: block;
+          text-align: center;
+          line-height: 48px;
+          font-size: 24px;
+          color: white;
+
+        }
+
+
+      }
+
+      .allPrice {
+        color: white;
+        margin-left: 80px;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-around;
+      }
+
+      .minPrice {
+        color: white;
+        display: inline-block;
+        height: 100%;
+        width: 110px;
+        line-height: 50px;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #2b333b;
+      }
+
+    }
+
+    .cartList {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 50px;
+      background: rgba(0, 0, 0, 0.3);
+
+      .listWrapper {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+
+        .title {
+          display: flex;
+          height: 40px;
+          line-height: 40px;
+          background: #f3f5f7;
+          border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+          padding-left: 10px;
+          padding-right: 10px;
+          justify-content: space-between;
+
+          span {
+            &:first-of-type {
+              font-size: 14px;
+              color: #07111b;
+            }
+
+            &:last-of-type {
+              font-size: 12px;
+              color: #00a0dc;
+            }
+          }
+        }
+
+        .content {
+          max-height: 200px;
+          overflow: auto;
+          background: white;
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+
+          li {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 50px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border-bottom: 1px solid #f1f1f1;
+
+            .left {
+              line-height: 50px;
+            }
+
+            .right {
+              display: flex;
+
+              > div {
+                line-height: 50px;
+
+                &:first-of-type {
+                  color: red;
+                }
+
+                &:nth-of-type(2) {
+                  padding-top: 6px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .up-enter, .up-leave-to {
+      transform: translateY(100%);
+    }
+
+    .up-enter-active, .up-leave-active {
+      transition: all 0.3s linear;
     }
   }
 </style>

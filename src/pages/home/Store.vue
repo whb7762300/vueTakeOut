@@ -3,19 +3,21 @@
     <store-head></store-head>
     <ul class="tab">
       <router-link tag="li" to="/store/orderfood"
-                   :class="[$route.path=='/store/orderfood'?'active':'']">
+                   :class="[$route.path=='/store/orderfood'?'active':'']" replace>
         <span>点餐</span>
       </router-link>
       <router-link tag="li" to="/store/comment"
-                   :class="[$route.path=='/store/comment'?'active':'']">
+                   :class="[$route.path=='/store/comment'?'active':'']" replace>
         <span>评价</span>
       </router-link>
       <router-link tag="li" to="/store/storeinfo"
-                   :class="[$route.path=='/store/storeinfo'?'active':'']">
+                   :class="[$route.path=='/store/storeinfo'?'active':'']" replace>
         <span>商家</span>
       </router-link>
     </ul>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

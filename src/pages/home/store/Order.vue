@@ -84,7 +84,6 @@
     methods: {
       clearCart() {
         this.showCartList = false;
-        console.log("执行了");
         this.$store.commit(CART_FOOD_CLEAR);
       },
       leftClick(index) {

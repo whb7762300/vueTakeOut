@@ -14,7 +14,8 @@
         </ul>
         <div class="horWrapper" ref="horWrapper">
           <ul class="two clearFix" :style="{width:ulWidth+'px'}">
-            <li v-for="item in pictures"><img :src="item" alt=""></li>
+            <li v-for="(item,i) in pictures" @click="showImagePreview(i)"><img :src="item" alt="">
+            </li>
           </ul>
         </div>
         <ul class="three">
@@ -35,15 +36,24 @@
 <script>
   import BScroll from 'better-scroll'
   import data from '../../../api/data.json'
+  import {ImagePreview} from 'vant';
 
   export default {
     name: "StoreInfo",
     data() {
       return {
-        pictures: []
+        pictures: [],
+        clickPic: 0,
       }
     },
-    methods: {},
+    methods: {
+      showImagePreview(pos) {
+        ImagePreview({
+          images: this.pictures,
+          startPosition: pos
+        });
+      }
+    },
     created() {
       this.pictures = data.info.pics;
     },
@@ -61,6 +71,7 @@
       });
     },
     computed: {
+      //计算出ul水平的宽度,来达到水平能够滑动的效果
       ulWidth() {
         let width = this.pictures.length * (120 + 10);
         return width;

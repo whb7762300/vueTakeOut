@@ -16,3 +16,5 @@ export const reqPwdLogin = ({name, pwd, captcha}) => ajax('/login_pwd', {
 }, 'POST')
 //5.用户退出登录
 export const reqLoginOut = () => ajax('/logout');
+//搜索列表
+export const reqSearchList = (geohash, keyword) => ajax('/search_shops', {geohash, keyword});

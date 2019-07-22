@@ -5,8 +5,10 @@ import App from './App'
 import router from './router'
 import store from './store/index.js'
 //vant组件
-import {Rate, Button, Switch, Toast} from 'vant';
+import {Rate, Button, Switch, Toast, ImagePreview, Search} from 'vant';
 
+Vue.use(Search);
+Vue.use(ImagePreview);
 Vue.use(Switch);
 Vue.use(Button);
 Vue.use(Rate);

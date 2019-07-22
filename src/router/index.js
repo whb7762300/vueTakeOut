@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '@/pages/home/home.vue'
-import search from '@/pages/search/search.vue'
-import order from '../pages/order/order.vue'
-import mine from '../pages/mine/mine.vue'
+//路由懒加载模式
+const home = () => import ('@/pages/home/home.vue')
+const search = () => import('@/pages/search/search.vue')
+const order = () => import('../pages/order/order.vue')
+const mine = () => import('../pages/mine/mine.vue')
 import store from '../pages/home/Store.vue'
 import login from '../pages/mine/Login.vue'
 import comment from '../pages/home/store/Comment.vue'

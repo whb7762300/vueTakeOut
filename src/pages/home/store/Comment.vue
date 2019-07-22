@@ -36,7 +36,8 @@
           <li v-for="item in ratings">
             <img :src="item.avatar" alt="">
             <div class="right">
-              <div class="title"><span>{{item.username}}</span><span>{{item.rateTime}}</span></div>
+              <div class="title">
+                <span>{{item.username}}</span><span>{{item.rateTime|dateFormat}}</span></div>
               <div class="starDiv">
                 <van-rate class="star" v-model="item.score" allow-half void-icon="star"
                           readonly size="15px" void-color="#eee"/>

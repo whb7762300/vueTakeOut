@@ -22,8 +22,9 @@
         <div>8个优惠<span class="angle"></span></div>
       </div>
     </div>
-    <transition name="fade">
-      <store-shop-dialog @dismissShopDiolog="dismissShopDiolog" :show="showShopDialog" v-show="showShopDialog"></store-shop-dialog>
+    <transition name="van-fade">
+      <store-shop-dialog @dismissShopDiolog="dismissShopDiolog" :show="showShopDialog"
+                         v-show="showShopDialog"></store-shop-dialog>
     </transition>
 
   </div>
